@@ -1,0 +1,13 @@
+
+;   CPX.DEF - linker def file for CpPal.Exe
+;   CpPal (C) Copyright 2001 R L Walsh  All Rights Reserved
+
+
+NAME CPPAL
+DESCRIPTION 'CpPal - Copyright 2001 R L Walsh - All Rights Reserved'
+PROTMODE
+BASE=0x10000
+IMPORTS
+    cpdInputHook    =CPPAL.2
+    cpdInitDll      =CPPAL.3
+

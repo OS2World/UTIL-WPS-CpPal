@@ -1,0 +1,39 @@
+/**********************************************************************/
+/*
+    CPX.DLG - CpPal Dialog
+    CpPal (C) Copyright 2001 R L Walsh  All Rights Reserved
+*/
+/**********************************************************************/
+
+#ifndef OS2_INCLUDED
+   #include <os2.h>
+#endif
+DLGINCLUDE 1 "CPX.H"
+
+DLGTEMPLATE IDD_MAIN LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+    DIALOG  "CpPal beta v0.30", IDD_MAIN, 168, 100, 236, 114, ,
+            FCF_SYSMENU | FCF_TITLEBAR | FCF_TASKLIST
+    BEGIN
+        GROUPBOX        "", -1, 0, 79, 236, 34
+        ICON            SPTR_ICONWARNING, IDC_SET, 55, 87, 21, 16,
+                        SS_SYSICON | WS_GROUP
+        LTEXT           "set", -1, 84, 89, 20, 8, NOT WS_GROUP
+        ICON            SPTR_ICONQUESTION, IDC_GET, 142, 87, 21, 16,
+                        SS_SYSICON | WS_GROUP
+        LTEXT           "get", -1, 171, 89, 20, 8, NOT WS_GROUP
+        CTEXT           "Drag from the icons to set or get the codepage", 
+                        IDC_INFO, 10, 65, 216, 8, NOT WS_GROUP
+        GROUPBOX        "", -1, 0, 2, 236, 63
+        CONTROL         "", IDC_LIST, 16, -43, 204, 86, WC_COMBOBOX, 
+                        CBS_DROPDOWNLIST | WS_TABSTOP | WS_VISIBLE
+        AUTOCHECKBOX    "change PM codepage", IDC_CPPM, 16, 45, 108, 10
+        AUTOCHECKBOX    "change Process codepage", IDC_CPPROC, 16, 17, 128, 
+                        10
+        CTEXT           "primary", IDC_CP1TXT, 26, 7, 44, 8, NOT WS_GROUP
+        AUTORADIOBUTTON "none", IDC_CP1, 70, 6, 36, 10, WS_TABSTOP
+        CTEXT           "secondary", IDC_CP2TXT, 119, 7, 50, 8, NOT WS_GROUP
+        AUTORADIOBUTTON "none", IDC_CP2, 170, 6, 36, 10, WS_TABSTOP
+    END
+END
+

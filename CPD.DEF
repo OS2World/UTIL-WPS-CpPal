@@ -1,0 +1,10 @@
+
+LIBRARY CPPAL INITGLOBAL TERMGLOBAL
+DESCRIPTION 'CpPal - (C) Copyright 2001 R L Walsh  All Rights Reserved'
+PROTMODE
+CODE LOADONCALL
+DATA SINGLE SHARED LOADONCALL
+EXPORTS
+    cpdInputHook        @2
+    cpdInitDll          @3
+

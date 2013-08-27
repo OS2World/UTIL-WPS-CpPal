@@ -1,0 +1,19 @@
+/**********************************************************************/
+/*
+    CPX.RC
+    CpPal (C) Copyright 2001 R L Walsh  All Rights Reserved
+*/
+/**********************************************************************/
+
+#include "CPX.H"
+
+/**********************************************************************/
+
+ICON        IDI_ICON    CPPAL.ICO
+POINTER     IDP_SET     CPX_SET.PTR
+POINTER     IDP_GET     CPX_GET.PTR
+POINTER     IDP_ILL     CPX_ILL.PTR
+
+RCINCLUDE   "CPX.DLG"
+
+

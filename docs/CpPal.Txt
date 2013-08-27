@@ -1,0 +1,241 @@
+______________________________________________________________________________
+______________________________________________________________________________
+
+    CpPal v0.30
+    (C) Copyright 2001 R L Walsh  All Rights Reserved
+
+    CpPal is free software released under the terms of the
+    GNU General Public License.  See "License" below.
+
+    Please send your comments and suggestions to:
+    Rich Walsh <dragtext@e-vertise.com>
+
+______________________________________________________________________________
+______________________________________________________________________________
+
+
+Contents
+========
+
+ o  Overview
+ o  Warning
+ o  Future Development
+ o  Using CpPal
+ o  About CpPal.Lst
+ o  File List
+ o  License
+
+______________________________________________________________________________
+______________________________________________________________________________
+
+
+Overview
+========
+
+CpPal uses drag and drop to let you query and change the codepages used
+by PM-based programs that are already running.  Its primary purpose is
+to let the occassional users of non-Latin-1 languages view text in those
+languages more easily.
+
+You can change the "process" codepage - used primarily for printing and
+file operations - to either value set in config.sys.  More usefully, you
+can also set the PM "message queue" codepage to any of the 100+ values
+in country.sys.  PM will use this codepage to translate keystrokes into
+characters and character values into the glyphs displayed in a window.
+
+
+Note
+----
+Text already displayed in a program's windows will *not* automatically
+change when the PM codepage changes.  To work around this, this version
+of CpPal simulates a font change in the window where the drop occurred.
+This may not work for all types of windows, and other windows in the same
+app will be unchanged.  In many cases, you can force an update by dragging
+a font from the WPS font palette to the windows which need updating.
+
+______________________________________________________________________________
+______________________________________________________________________________
+
+
+Warning
+=======
+
+All users should understand that changing codepages may have *extremely*
+undesirable effects.  Files whose names contain non-ASCII characters
+(i.e. characters not in the English alphabet) may become inaccessible if
+the current process codepage does not match the one in effect when the
+file was created.  Applications may become unusable or crash if the PM
+codepage is changed to something radically different (e.g. an EBCDIC
+codepage).  Further, it may take extremely long for a font-change dialog
+to appear in these circumstances.
+
+For these reasons, CpPal will not permit you to change the codepages
+used by the shell process (pmshell #1), the WPS, and CpPal itself.
+In addition, CpPal is incapable of changing the codepage used by text
+mode programs;  for these, you will still need to use the CHCP command
+before starting the app.
+
+______________________________________________________________________________
+______________________________________________________________________________
+
+
+Future Development
+==================
+
+v0.30 constitutes Phase I of CpPal's development.  If it proves useful to
+enough people and doesn't produce too many undesired side-effects, I will
+procede to Phase II.  When complete, it will provide a true palette of
+user-defined values and will offer the option to change the target's font
+at the same time as the PM codepage changes.  Also, the restrictions on
+changing the shell's and WPS's codepages may be made optional.  Any other
+features that seem appropriate may be added as well.
+
+______________________________________________________________________________
+______________________________________________________________________________
+
+
+Using CpPal
+===========
+
+CpPal's three primary files (*.exe, *.dll, *.lst) should all be in the same
+directory.  Make that the current directory, then run CpPal.Exe (creating
+a program object will simplify its use).
+
+Usage is straight-forward:
+
+- to query a program's current codepages, drag from the "get" icon and drop
+  on any window belonging to that program.  The mouse pointer will change
+  to an arrow with a question mark while dragging.
+
+- to set a program's codepages, select the PM codepage from the dropdown
+  list and the process codepage using the radio buttons.  To leave either
+  unchanged, deselect the corresponding "change" checkbox.  Drag from the
+  "set" icon.  The mouse pointer will change to an arrow with a "Cp" when
+  over programs that you can change and to an arrow with an "illegal"
+  symbol when over programs that you can't.
+
+When you drop, the results will be displayed on the status line in the
+middle of the dialog.  This line will display the operation, the target's
+process ID and process codepage, and the window's thread ID and message
+queue codepage.  If an error occurs while setting a codepage, the unchanged
+value will be displayed followed by an asterisk.
+
+
+Note
+----
+Process codepage switching is enabled only when there are valid primary
+and secondary codepages available.  If the CODEPAGE= entry in config.sys
+contains only one valid value, the "secondary" radio button will show
+"none".  If the CODEPAGE= entry is missing, the "primary" radio button
+will be relabeled "default" and will show the codepage chosen by the
+system as the default for your country.
+
+______________________________________________________________________________
+______________________________________________________________________________
+
+
+About CpPal.Lst
+===============
+
+This file contains the codepage descriptions used by the dropdown list
+of codepages available to PM.  Most entries were obtained by parsing
+the headers of the codepage files in \LANGUAGE\CODEPAGE.  The remaining
+entries were added to reflect the codepages actually available to PM on
+the author's Warp v4.51 system.  I would appreciate hearing from anyone
+who can identify these unknown codepages.
+
+Because country.sys (which supplies the PM codepages) does not include
+exactly the same CPs as these files, some entries have no description
+while other entries with full descriptions will never appear in the
+dropdown list.
+
+Each entry consists of a codepage number, a flag, and a description
+where available.  The listing must be kept in ascending numeric order
+but the spacing between columns is unimportant.  Currently, the flag
+consist of a single character:
+
+    a = single byte ASCII-based codepage
+    d = double byte ASCII-based codepage
+    e = single or double byte EBCDIC-based codepage
+    u = Unicode multi byte codepage
+    n = unknown;  no text displayed when using "System Proportional",
+        ASCII text displayed when using "Times New Roman MT30"
+    * = unknown;  there are files for these in \language\codepage
+        but apparently they aren't included in country.sys
+
+If desired, you can change the flags to use 2 or 3 characters,
+e.g. "e1" & "e2" to indicate EBCDIC single & double byte codepages.
+
+FYI... if the dropdown list displays a codepage whose flag is "?",
+then this CP has no entry in CpPal.Lst
+
+______________________________________________________________________________
+______________________________________________________________________________
+
+
+File List
+=========
+
+All files are dated Nov 15, 2001 at 00:30:00.
+
+In cppal030.zip:
+
+    CpPal.Exe
+    CpPal.Dll
+    CpPal.Lst
+    CpPal.Txt
+    CpPalSrc.Zip
+    Copying
+
+In CpPalSrc.zip:
+
+    CP.H
+    CPD.C
+    CPD.DEF
+    CPPAL.ICO
+    CPX.C
+    CPX.DEF
+    CPX.DLG
+    CPX.H
+    CPX.RC
+    CPX_GET.PTR
+    CPX_ILL.PTR
+    CPX_SET.PTR
+
+______________________________________________________________________________
+______________________________________________________________________________
+
+
+License
+=======
+
+This file is part of CpPal.
+
+CpPal is free software; you can redistribute it and/or modify it
+under the terms of the GNU General Public License as published by
+the Free Software Foundation;  either version 2 of the License,
+or (at your option) any later version.
+
+CpPal is distributed in the hope that it will be useful, but WITHOUT
+ANY WARRANTY;  without even the implied warranty of MERCHANTABILITY or
+FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+for more details.
+
+You should have received a copy of the GNU General Public License
+along with Foobar; if not, write to the Free Software Foundation, Inc.,
+59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
+The file COPYING, included with this distribution, contains the full
+text of the GNU General Public License.
+
+______________________________________________________________________________
+______________________________________________________________________________
+
+
+Rich Walsh  <dragtext@e-vertise.com>
+Ft Myers, Florida
+Nov 15, 2001
+
+______________________________________________________________________________
+______________________________________________________________________________
+
